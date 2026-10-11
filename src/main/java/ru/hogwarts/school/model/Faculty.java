@@ -1,11 +1,9 @@
 package ru.hogwarts.school.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -16,6 +14,10 @@ public class Faculty {
     private String name;
     private String color;
 
+    @OneToMany(mappedBy = "faculty")
+    @JsonManagedReference
+    private List<Student> students;
+
     public Faculty() {
     }
 
@@ -24,7 +26,6 @@ public class Faculty {
         this.name = name;
         this.color = color;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -73,4 +74,13 @@ public class Faculty {
     public void setColor(String color) {
         this.color = color;
     }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
 }
